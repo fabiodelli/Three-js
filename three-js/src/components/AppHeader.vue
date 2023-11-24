@@ -19,6 +19,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    margin: 0;
+    
 }
 
 .button{

@@ -21,6 +21,8 @@
     <style scoped>
     div {
       background: #0c0c29;
+      overflow-y: hidden;
     }
+    
     </style>
     
