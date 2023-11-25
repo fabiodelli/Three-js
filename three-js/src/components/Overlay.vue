@@ -2,44 +2,28 @@
     <div>
       <!-- Contenuto sovrapposto -->
       <div class="overlay-content">
-        <span class="as">ciao</span>
-        <span class="ad">ciao</span>
-        <span class="bs">ciao</span>
-        <span class="bd">ciao</span>
+        <LastProject />
+        <Paragraf />
+        <Slogan />
       </div>
     </div>
   </template>
   
   <script>
-  export default {
-    // Aggiungi la logica del componente se necessario
-  };
+import LastProject from './subcomponents/LastProject.vue';
+import Paragraf from './subcomponents/Paragraf.vue';
+import Slogan from './subcomponents/Slogan.vue';
+
+export default {
+  components: {
+    LastProject,
+    Paragraf,
+    Slogan,
+  },
+};
   </script>
   
   <style scoped>
-  .as{
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: red;
-  }
-  .ad{
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: red;
-  }
-  .bs{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: red;
-  }
-  .bd{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: red;
-  }
+  
   </style>
   

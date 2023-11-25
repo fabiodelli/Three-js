@@ -73,7 +73,7 @@ export default {
         load3DModel() {
             const loader = new GLTFLoader();
             loader.load('/models/brain.gltf', (gltf) => {
-                gltf.scene.scale.set(4, 4, 4);
+                gltf.scene.scale.set(5, 5, 5);
 
                 gltf.scene.traverse((child) => {
                     if (child.isMesh) {
