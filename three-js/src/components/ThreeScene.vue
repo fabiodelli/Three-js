@@ -1,23 +1,29 @@
 <!-- All'interno di ThreeScene.vue -->
-<!-- ThreeScene.vue -->
 <template>
   <div>
     <Model />
-    <Overlay />
+    <router-view class="overlay-container" />
   </div>
 </template>
 
 <script>
 import Model from './Model.vue';
 import Overlay from './Overlay.vue';
+import SecondOverlay from './SecondOverlay.vue';
 
 export default {
   components: {
     Model,
     Overlay,
+    SecondOverlay,
   },
 };
 </script>
+<style scoped>
+
+</style>
+
+
 
 
 

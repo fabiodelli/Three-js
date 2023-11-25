@@ -36,7 +36,8 @@ export default {
 
             // Centra il modello nella finestra
             this.camera.position.z = 50;
-            this.camera.position.y = 0; // Regola questa posizione per centrare verticalmente il modello
+            this.camera.position.y = 5; // Regola questa posizione per centrare verticalmente il modello
+            
 
             window.addEventListener('resize', this.handleWindowResize);
         },
@@ -73,7 +74,7 @@ export default {
         load3DModel() {
             const loader = new GLTFLoader();
             loader.load('/models/brain.gltf', (gltf) => {
-                gltf.scene.scale.set(5, 5, 5);
+                gltf.scene.scale.set(7, 7, 7);
 
                 gltf.scene.traverse((child) => {
                     if (child.isMesh) {

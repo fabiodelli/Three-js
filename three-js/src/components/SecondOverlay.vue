@@ -27,24 +27,23 @@ export default {
   
   <style scoped>
   .paragraf{
-    color: white;
+    color: red;
     position: absolute;
     left: 10%;
     bottom: 10%;
     width: 20%;
 }
   .slogan{
-    color: white;
+    color: red;
     position: absolute;
     left: 25%;
     bottom: 35%;
 }
   .LastProject{
-    color: white;
+    color: red;
     position: absolute;
     right: 10%;
     bottom: 10%;
 }
 
   </style>
-  

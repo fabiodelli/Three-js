@@ -1,6 +1,6 @@
 <template>
     <div>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste, sint.
+        <img src="https://picsum.photos/seed/picsum/300/200" alt="">
     </div>
 </template>
 
@@ -10,6 +10,6 @@
     }
 </script>
 
-<style lang="css" scoped>
+<style lang="sss" scoped>
 
 </style>

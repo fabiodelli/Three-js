@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Last project</h3>
-        <img src="https://picsum.photos/seed/picsum/200/300" alt="">
+        <img src="https://picsum.photos/seed/picsum/150/100" alt="">
     </div>
 </template>
 
@@ -11,6 +11,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+img{
+  border-radius: 10px;
+}
 </style>
