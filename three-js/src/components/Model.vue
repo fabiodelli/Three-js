@@ -11,6 +11,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 export default {
+    
     data() {
         return {
             gltf: null,
@@ -100,18 +101,18 @@ export default {
                 }
 
                 // Applica la rotazione continua all'oggetto del modello lungo l'asse Y
-                this.rotateModel();
+               /*  this.rotateModel(); */
             };
 
             animate();
         },
-        rotateModel() {
+        /* rotateModel() {
             if (this.gltf && this.gltf.scene) {
                 if (this.gltf.scene.rotation) {
                     this.gltf.scene.rotation.y += 0.005;
                 }
             }
-        },
+        }, */
     },
 };
 </script>
