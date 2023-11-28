@@ -20,7 +20,11 @@
     align-items: center;
     padding: 1rem;
     margin: 0;
-    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
 }
 
 .button{

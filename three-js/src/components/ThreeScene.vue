@@ -2,7 +2,7 @@
 <template>
   <div>
     <Model />
-    <router-view class="overlay-container" />
+    <router-view />
   </div>
 </template>
 

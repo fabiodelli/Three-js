@@ -117,19 +117,12 @@ export default {
 </script>
   
 <style scoped>
-.lastProgect {
-    background: white;
-    width: 10%;
-    position: absolute;
-    right: 10%;
-    bottom: 10%;
-}
 
 #fixed-container {
     width: 100%;
     height: 100%;
     margin: 0;
-    overflow: hidden;
+    position:fixed; 
 }
 </style>
   

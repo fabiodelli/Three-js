@@ -5,7 +5,7 @@ import SecondOverlay from './src/components/SecondOverlay.vue';
 
 const routes = [
   { path: '/', component: Overlay },
-  { path: '/second', component: SecondOverlay },
+  { path: '/subcomponent', component: SecondOverlay },
 ];
 
 const router = createRouter({

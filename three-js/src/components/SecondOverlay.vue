@@ -2,48 +2,47 @@
     <div>
       <!-- Contenuto sovrapposto -->
       <div class="overlay-content">
-        <LastProject class="LastProject" />
-        <Paragraf class="paragraf"/>
-        <Slogan class="slogan" />
+        <div class="point-a"></div>
+        <div class="point-b"></div>
+        <div class="point-c"></div>
       </div>
     </div>
   </template>
   
   <script>
-import LastProject from './subcomponents/LastProject.vue';
-import Paragraf from './subcomponents/Paragraf.vue';
-import Slogan from './subcomponents/Slogan.vue';
-import SecondComponent from './subcomponents/SecondComponent.vue';
 
-export default {
-  components: {
-    LastProject,
-    Paragraf,
-    Slogan,
-    SecondComponent,
-  },
-};
   </script>
   
   <style scoped>
-  .paragraf{
-    color: red;
+  .point-a{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background: cornflowerblue;
     position: absolute;
-    left: 10%;
-    bottom: 10%;
-    width: 20%;
-}
-  .slogan{
-    color: red;
-    position: absolute;
+    top: 30%;
     left: 25%;
-    bottom: 35%;
-}
-  .LastProject{
-    color: red;
+    z-index: 2;
+  }
+  .point-b{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background: cornflowerblue;
     position: absolute;
-    right: 10%;
-    bottom: 10%;
-}
+    top: 30%;
+    right: 25%;
+    z-index: 2;
+  }
+  .point-c{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background: cornflowerblue;
+    position: absolute;
+    top: 60%;
+    left: calc(50% - 25px);
+    z-index: 2;
+  }
 
   </style>
