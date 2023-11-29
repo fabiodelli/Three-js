@@ -24,7 +24,7 @@
     top: 0;
     left: 0;
     z-index: 2;
-    width: 100%;
+    width: 98%;
 }
 
 .button{
@@ -37,6 +37,8 @@
 }
 .contact{
     background: #72ecfc;
-  
+}
+img{
+    width: 150px;
 }
 </style>

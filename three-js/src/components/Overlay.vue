@@ -7,8 +7,6 @@
       </router-link>
       <Paragraf class="paragraf" />
       <Slogan class="slogan" />
-
-
     </div>
   </div>
 </template>
@@ -90,8 +88,9 @@ export default {
 .slogan {
   color: white;
   position: absolute;
-  left: 25%;
+  left: 50%;
   bottom: 35%;
+  transform: translateX(-50%);
 }
 
 .LastProject {
@@ -101,13 +100,5 @@ export default {
   bottom: 10%;
 }
 
-p {
-
-  background: red;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1000px;
-}
 </style>
   
