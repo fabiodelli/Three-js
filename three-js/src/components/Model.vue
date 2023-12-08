@@ -1,33 +1,31 @@
 <template>
   <div>
-    <div ref="threeContainer" id="fixed-container"></div>
+    <div ref="threeContainer"></div>
   </div>
 </template>
 
 <script>
-import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import * as TWEEN from '@tweenjs/tween.js';
+import * as THREE from 'three';
 
 export default {
   data() {
     return {
       gltf: null,
-      scrollPosition: 0,
-      transitionCalled: false, // Aggiunta variabile per tracciare se la transizione è stata chiamata
+      animations: [],
+      mixer: null,
+      animationStarted: false,
+      lastFrame: null,
     };
   },
   mounted() {
     this.setupScene();
     this.setupLights();
     this.load3DModel();
-    this.setupAnimation();
-    window.addEventListener('resize', this.handleWindowResize);
-    window.addEventListener('wheel', this.transition);
+    this.addEventListener();
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.handleWindowResize);
-    window.removeEventListener('wheel', this.transition);
+    this.removeEventListener();
   },
   methods: {
     setupScene() {
@@ -35,16 +33,17 @@ export default {
       this.scene.background = new THREE.Color(0x0c0c29);
 
       this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      this.renderer = new THREE.WebGLRenderer();
-
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.$refs.threeContainer.appendChild(this.renderer.domElement);
-
-      this.camera.position.z = 40;
-      this.camera.position.y = 10;
+      this.camera.position.set(0, 20, 40);
 
       const gridHelper = new THREE.GridHelper(100, 10);
       this.scene.add(gridHelper);
+
+      this.renderer = new THREE.WebGLRenderer();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.domElement.style.position = 'absolute';
+      this.renderer.domElement.style.top = '0';
+      this.renderer.domElement.style.left = '0';
+      this.$refs.threeContainer.appendChild(this.renderer.domElement);
     },
     setupLights() {
       const ambientLight = new THREE.AmbientLight(0x404040);
@@ -65,9 +64,8 @@ export default {
       const loader = new GLTFLoader();
       loader.load('/models/brain.gltf', (gltf) => {
         this.gltf = gltf;
-
         gltf.scene.scale.set(6, 6, 6);
-        gltf.scene.position.set(5, 0, 0);
+        gltf.scene.position.set(0, 0, 0);
         gltf.scene.traverse((child) => {
           if (child.isMesh) {
             child.castShadow = true;
@@ -75,8 +73,18 @@ export default {
           }
         });
 
+        if (gltf.animations && gltf.animations.length > 0) {
+          this.animations = gltf.animations;
+          this.mixer = new THREE.AnimationMixer(gltf.scene);
+          this.animations.forEach((animation) => {
+            const action = this.mixer.clipAction(animation);
+            action.play();
+          });
+        } else {
+          console.error('Errore: Nessuna animazione trovata nel modello.');
+        }
+
         if (gltf.scene) {
-          gltf.scene.rotation.y = -Math.PI / 2;
           this.scene.add(gltf.scene);
         } else {
           console.error('Errore: La scena del modello non è definita correttamente.');
@@ -85,68 +93,39 @@ export default {
         this.renderer.render(this.scene, this.camera);
       });
     },
-    setupAnimation() {
-      const animate = () => {
-        requestAnimationFrame(animate);
-        TWEEN.update();
-        if (this.renderer) {
+    addEventListener() {
+      window.addEventListener('wheel', this.handleWheel);
+    },
+    removeEventListener() {
+      window.removeEventListener('wheel', this.handleWheel);
+    },
+    handleWheel() {
+      console.log("ciao");
+      if (!this.animationStarted) {
+        this.animationStarted = true;
+        this.animate();
+      }
+    },
+    animate() {
+      requestAnimationFrame(this.animate);
+      if (this.mixer) {
+        this.mixer.update(0.01);
+      }
+      this.renderer.render(this.scene, this.camera);
+      if (!this.lastFrame) {
+        this.lastFrame = this.scene.clone();
+      }
+    },
+    stopAnimation() {
+      if (this.mixer) {
+        this.mixer.stopAllAction();
+        if (this.lastFrame) {
+          // Ripristina lo stato finale del modello
+          this.scene = this.lastFrame.clone();
           this.renderer.render(this.scene, this.camera);
         }
-      };
-
-      animate();
-    },
-    handleWindowResize() {
-      const newWidth = window.innerWidth;
-      const newHeight = window.innerHeight;
-
-      this.camera.aspect = newWidth / newHeight;
-      this.camera.updateProjectionMatrix();
-
-      this.renderer.setSize(newWidth, newHeight);
-
-      this.renderer.render(this.scene, this.camera);
-    },
-    transition() {
-      // Verifica se la transizione è già stata chiamata
-      if (this.transitionCalled) {
-        return;
       }
-
-      this.transitionCalled = true; // Imposta la variabile a true per indicare che la transizione è stata chiamata
-
-      this.scrollPosition = window.scrollY;
-      const targetRotation = ((window.innerHeight - this.scrollPosition) / window.innerHeight) * (Math.PI * 1.01);
-
-      const boundingBox = new THREE.Box3().setFromObject(this.gltf.scene);
-      const modelCenter = new THREE.Vector3();
-      boundingBox.getCenter(modelCenter);
-
-      const originalPosition = this.gltf.scene.position.clone();
-
-      this.gltf.scene.position.sub(modelCenter);
-
-      new TWEEN.Tween(this.gltf.scene.rotation)
-        .to({ y: targetRotation }, 3000)
-        .onUpdate(() => {
-          this.gltf.scene.position.copy(originalPosition);
-          this.gltf.scene.position.sub(modelCenter);
-          this.gltf.scene.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), targetRotation);
-          this.gltf.scene.position.add(modelCenter);
-
-          this.renderer.render(this.scene, this.camera);
-        })
-        .start();
     },
   },
 };
 </script>
-
-<style scoped>
-#fixed-container {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  position: fixed;
-}
-</style>
