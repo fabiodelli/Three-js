@@ -100,7 +100,6 @@ export default {
       window.removeEventListener('wheel', this.handleWheel);
     },
     handleWheel() {
-      console.log("ciao");
       if (!this.animationStarted) {
         this.animationStarted = true;
         this.animate();
@@ -108,24 +107,13 @@ export default {
     },
     animate() {
       requestAnimationFrame(this.animate);
+
       if (this.mixer) {
         this.mixer.update(0.01);
       }
+
       this.renderer.render(this.scene, this.camera);
-      if (!this.lastFrame) {
-        this.lastFrame = this.scene.clone();
-      }
     },
-    stopAnimation() {
-      if (this.mixer) {
-        this.mixer.stopAllAction();
-        if (this.lastFrame) {
-          // Ripristina lo stato finale del modello
-          this.scene = this.lastFrame.clone();
-          this.renderer.render(this.scene, this.camera);
-        }
-      }
-    },
-  },
+}
 };
 </script>
