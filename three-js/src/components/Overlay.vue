@@ -68,7 +68,7 @@ export default {
         setTimeout(() => {
           this.loadingNextComponent = false;
         }, 0);
-      }, 3000);
+      }, 5000);
     }
   },
   },
