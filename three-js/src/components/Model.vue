@@ -33,7 +33,7 @@ export default {
       this.scene.background = new THREE.Color(0x0c0c29);
 
       this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      this.camera.position.set(0, 20, 40);
+      this.camera.position.set(0, 20, 45);
 
       const gridHelper = new THREE.GridHelper(100, 10);
       this.scene.add(gridHelper);
